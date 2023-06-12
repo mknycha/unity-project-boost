@@ -12,6 +12,7 @@ public class CollisionHandler : MonoBehaviour
                 break;
             case "Finish":
                 Debug.Log("Finish");
+                LoadNextLevel();
                 break;
             default:
                 Debug.Log("Hit something");
@@ -20,9 +21,24 @@ public class CollisionHandler : MonoBehaviour
         }
     }
 
+    private static void LoadNextLevel()
+    {
+        int nextSceneIndex = CurrentSceneIndex() + 1;
+        if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
+        {
+            nextSceneIndex = 0;
+        }
+        SceneManager.LoadScene(nextSceneIndex);
+    }
+
     private static void ReloadLevel()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int currentSceneIndex = CurrentSceneIndex();
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    private static int CurrentSceneIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
     }
 }
