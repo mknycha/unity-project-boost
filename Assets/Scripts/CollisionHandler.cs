@@ -3,8 +3,26 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] float levelLoadDelay = 1f;
+
+    [SerializeField] AudioClip crash;
+    [SerializeField] AudioClip finish;
+
+    bool isLocked = false;
+    AudioSource audioSource;
+    // Start is called before the first frame update
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
+
     void OnCollisionEnter(Collision other)
     {
+        if (isLocked)
+        {
+            return;
+        }
+
         switch (other.gameObject.tag)
         {
             case "Friendly":
@@ -12,16 +30,43 @@ public class CollisionHandler : MonoBehaviour
                 break;
             case "Finish":
                 Debug.Log("Finish");
-                LoadNextLevel();
+                StartFinishSequence();
                 break;
             default:
                 Debug.Log("Hit something");
-                ReloadLevel();
+                StartCrashSequence();
                 break;
         }
     }
 
-    private static void LoadNextLevel()
+    private void StartFinishSequence()
+    {
+        isLocked = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(finish);
+        Movement movement = GetComponent<Movement>();
+        if (movement != null)
+        {
+            movement.enabled = false;
+        }
+        Invoke("LoadNextLevel", levelLoadDelay);
+    }
+
+    void StartCrashSequence()
+    {
+        isLocked = true;
+        audioSource.Stop();
+        audioSource.PlayOneShot(crash);
+        // TODO: Add particle effects
+        Movement movement = GetComponent<Movement>();
+        if (movement != null)
+        {
+            movement.enabled = false;
+        }
+        Invoke("ReloadLevel", levelLoadDelay);
+    }
+
+    private void LoadNextLevel()
     {
         int nextSceneIndex = CurrentSceneIndex() + 1;
         if (nextSceneIndex >= SceneManager.sceneCountInBuildSettings)
@@ -31,7 +76,7 @@ public class CollisionHandler : MonoBehaviour
         SceneManager.LoadScene(nextSceneIndex);
     }
 
-    private static void ReloadLevel()
+    private void ReloadLevel()
     {
         int currentSceneIndex = CurrentSceneIndex();
         SceneManager.LoadScene(currentSceneIndex);
