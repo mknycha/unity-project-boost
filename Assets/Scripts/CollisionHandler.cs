@@ -6,7 +6,10 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] float levelLoadDelay = 1f;
 
     [SerializeField] AudioClip crash;
-    [SerializeField] AudioClip finish;
+    [SerializeField] AudioClip success;
+
+    [SerializeField] ParticleSystem successParticles;
+    [SerializeField] ParticleSystem crashParticles;
 
     bool isLocked = false;
     AudioSource audioSource;
@@ -43,7 +46,8 @@ public class CollisionHandler : MonoBehaviour
     {
         isLocked = true;
         audioSource.Stop();
-        audioSource.PlayOneShot(finish);
+        audioSource.PlayOneShot(success);
+        successParticles.Play();
         Movement movement = GetComponent<Movement>();
         if (movement != null)
         {
@@ -57,7 +61,7 @@ public class CollisionHandler : MonoBehaviour
         isLocked = true;
         audioSource.Stop();
         audioSource.PlayOneShot(crash);
-        // TODO: Add particle effects
+        crashParticles.Play();
         Movement movement = GetComponent<Movement>();
         if (movement != null)
         {
