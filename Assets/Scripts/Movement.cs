@@ -16,6 +16,9 @@ public class Movement : MonoBehaviour
 
     Rigidbody rb;
     AudioSource audioSource;
+
+    bool isThrusting = false;
+    bool isRotating = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,17 @@ public class Movement : MonoBehaviour
     {
         ProcessThrust();
         ProcessRotation();
+        if (isRotating || isThrusting)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.PlayOneShot(mainEngine);
+            }
+        }
+        else
+        {
+            audioSource.Stop();
+        }
     }
 
     void ProcessThrust()
@@ -44,10 +58,7 @@ public class Movement : MonoBehaviour
 
     private void StartThrusting()
     {
-        if (!audioSource.isPlaying)
-        {
-            audioSource.PlayOneShot(mainEngine);
-        }
+        isThrusting = true;
         rb.AddRelativeForce(Vector3.up * mainThrust * Time.deltaTime, ForceMode.Force);
         if (!mainBooster.isPlaying)
         {
@@ -57,7 +68,7 @@ public class Movement : MonoBehaviour
 
     private void StopThrusting()
     {
-        audioSource.Stop();
+        isThrusting = false;
         mainBooster.Stop();
     }
 
@@ -79,6 +90,7 @@ public class Movement : MonoBehaviour
 
     private void StartRotatingLeft()
     {
+        isRotating = true;
         if (!leftBooster.isPlaying)
         {
             leftBooster.Play();
@@ -89,6 +101,7 @@ public class Movement : MonoBehaviour
 
     private void StartRotatingRight()
     {
+        isRotating = true;
         leftBooster.Stop();
         if (!rightBooster.isPlaying)
         {
@@ -99,6 +112,7 @@ public class Movement : MonoBehaviour
 
     private void StopRotating()
     {
+        isRotating = false;
         rightBooster.Stop();
         leftBooster.Stop();
     }
