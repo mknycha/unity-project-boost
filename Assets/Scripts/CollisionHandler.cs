@@ -12,6 +12,7 @@ public class CollisionHandler : MonoBehaviour
     [SerializeField] ParticleSystem crashParticles;
 
     bool isLocked = false;
+    bool collisionsDisabled = false;
     AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
@@ -19,9 +20,36 @@ public class CollisionHandler : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
+    private void Update()
+    {
+        HandleDebugKeys();
+    }
+
+    private void HandleDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextLevel();
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            string message;
+            if (collisionsDisabled)
+            {
+                message = "Enabling colissions";
+            }
+            else
+            {
+                message = "Disabling colissions";
+            }
+            Debug.Log(message);
+            collisionsDisabled = !collisionsDisabled;
+        }
+    }
+
     void OnCollisionEnter(Collision other)
     {
-        if (isLocked)
+        if (isLocked || collisionsDisabled)
         {
             return;
         }
