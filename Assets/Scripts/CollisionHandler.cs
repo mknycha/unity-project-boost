@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,10 @@ public class CollisionHandler : MonoBehaviour
 
     [SerializeField] ParticleSystem successParticles;
     [SerializeField] ParticleSystem crashParticles;
+
+    [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
+    [SerializeField] float cameraShakeIntensity = 4f;
+    [SerializeField] float cameraShakeTime = 1f;
 
     bool isLocked = false;
     bool collisionsDisabled = false;
@@ -87,6 +92,7 @@ public class CollisionHandler : MonoBehaviour
     void StartCrashSequence()
     {
         isLocked = true;
+        CinemachineShake.Instance.ShakeCamera(cameraShakeIntensity, cameraShakeTime);
         audioSource.Stop();
         audioSource.PlayOneShot(crash);
         crashParticles.Play();

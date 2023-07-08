@@ -492,6 +492,7 @@ GameObject:
   - component: {fileID: 317299642}
   - component: {fileID: 317299641}
   - component: {fileID: 317299643}
+  - component: {fileID: 317299644}
   m_Layer: 0
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -561,7 +562,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317299640}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
   m_Name: 
@@ -571,6 +572,18 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 162053003}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!114 &317299644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317299640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5a4057864a0d3d40b6b9312336c4863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &320241420 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1701065406167202101, guid: 581263b81741a404aa1fb039f15f722b, type: 3}
@@ -1735,7 +1748,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: -0.00026175604, y: -0.008692452, z: -0.0007394673, w: 0.9999619}
-  m_LocalPosition: {x: -12.54, y: 1.6, z: -15}
+  m_LocalPosition: {x: -5.1036015, y: 3.2664876, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3409,10 +3422,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NoiseProfile: {fileID: 0}
-  m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 1
-  m_FrequencyGain: 4
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 2, y: 2, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 3
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!4 &1908752837 stripped
 Transform:
@@ -3857,6 +3870,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7201331891106067711, guid: 9f863ddfb027a464faf1e0e8b594fe75, type: 3}
       propertyPath: virtualCamera
+      value: 
+      objectReference: {fileID: 317299641}
+    - target: {fileID: 7201331891106067711, guid: 9f863ddfb027a464faf1e0e8b594fe75, type: 3}
+      propertyPath: cameraShakeTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7201331891106067711, guid: 9f863ddfb027a464faf1e0e8b594fe75, type: 3}
+      propertyPath: cameraShakeIntensity
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7201331891106067711, guid: 9f863ddfb027a464faf1e0e8b594fe75, type: 3}
+      propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 317299641}
     - target: {fileID: 8680027907488751755, guid: 9f863ddfb027a464faf1e0e8b594fe75, type: 3}
