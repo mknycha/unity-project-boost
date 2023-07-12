@@ -13,17 +13,45 @@ public class Movement : MonoBehaviour
     [SerializeField] ParticleSystem leftBooster;
     [SerializeField] ParticleSystem rightBooster;
 
+    [SerializeField] WindZone windZone;
+
 
     Rigidbody rb;
     AudioSource audioSource;
 
     bool isThrusting = false;
     bool isRotating = false;
+
+    bool isWithinWindZone = false;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("WindZone"))
+        {
+            isWithinWindZone = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("WindZone"))
+        {
+            isWithinWindZone = false;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isWithinWindZone)
+        {
+            windZone.ApplyForce(rb);
+        }
     }
 
     // Update is called once per frame
