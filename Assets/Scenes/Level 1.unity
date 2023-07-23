@@ -3564,10 +3564,6 @@ PrefabInstance:
       propertyPath: cinemachineVirtualCamera
       value: 
       objectReference: {fileID: 317299641}
-    - target: {fileID: 8680027907488751755, guid: 9f863ddfb027a464faf1e0e8b594fe75, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
